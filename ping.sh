@@ -1,8 +1,8 @@
 #!/bin/bash
-printf "Ping Test (dns & ntp hosts) : \n\n"
+printf "Ping Test (dns & ntp hosts) : \n"
 for DC in \
     LT-87.247.68.60 \
-    LT-ns2.telecom.lt \
+    LT-ns1.telecom.lt \
     UK-1.uk.pool.ntp.org \
     UK-ntp2a.mcc.ac.uk \
     UK-213.123.251.87 \
@@ -23,15 +23,19 @@ do
     printf "$DC: \t$(ping -i .2 -c 10 -q $ip | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
-printf "DigitalOcean Ping Test:\n\n"
+printf "\n\nDigitalOcean Ping Test:\n"
 
 # https://www.digitalocean.com/docs/platform/availability-matrix/
-for DC in LON1 FRA1 AMS2 AMS3
+for DC in \
+    LON1 \
+    FRA1 \
+    AMS2 \
+    AMS3
 do
     printf "$DC: \t$(ping -i .2 -c 10 -q speedtest-$DC.digitalocean.com | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
-printf "\n\nLinode Ping Test:\n\n"
+printf "\n\nLinode Ping Test:\n"
 
 # https://www.linode.com/speed-test/
 for DC in london frankfurt
@@ -40,17 +44,17 @@ do
 done
 
 printf "\n\nAWS Ping Test:\n"
-printf "Frankfurt 	eu-central-1\n"
-printf "Ireland 	eu-west-1\n"
-printf "London 	eu-west-2\n"
-printf "Milan 	eu-south-1\n"
-printf "Paris 	eu-west-3\n"
-printf "Stockholm 	eu-north-1\n\n"
-
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
-for DC in eu-north-1 eu-central-1 eu-west-1 eu-west-2 eu-west-3 eu-north-1 eu-south-1
+for DC in \
+    Stockholm.eu-north-1 \
+    Frankfurt.eu-central-1 \
+    Ireland.eu-west-1 \
+    London.eu-west-2 \
+    Milan.eu-south-1 \
+    Paris.eu-west-3
 do
-    printf "$DC: \t$(ping -i .2 -c 10 -q ec2.$DC.amazonaws.com | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
+    loc=$(echo $DC | cut -d"." -f2)
+    printf "$DC: \t$(ping -i .2 -c 10 -q ec2.$loc.amazonaws.com | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
 
