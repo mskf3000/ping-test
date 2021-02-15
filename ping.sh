@@ -2,6 +2,7 @@
 printf "Ping Test (dns & ntp hosts) : \n"
 for DC in \
     LT-87.247.68.60 \
+    LT-ns1.serveriai.lt \
     LT-ns1.telecom.lt \
     UK-1.uk.pool.ntp.org \
     UK-ntp2a.mcc.ac.uk \
