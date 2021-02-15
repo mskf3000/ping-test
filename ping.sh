@@ -23,7 +23,7 @@ do
     printf "$DC: \t$(ping -i .2 -c 10 -q $ip | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
-printf "\n\nDigitalOcean Ping Test:\n"
+printf "\nDigitalOcean Ping Test:\n"
 
 # https://www.digitalocean.com/docs/platform/availability-matrix/
 for DC in \
@@ -35,7 +35,7 @@ do
     printf "$DC: \t$(ping -i .2 -c 10 -q speedtest-$DC.digitalocean.com | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
-printf "\n\nLinode Ping Test:\n"
+printf "\nLinode Ping Test:\n"
 
 # https://www.linode.com/speed-test/
 for DC in london frankfurt
@@ -43,7 +43,7 @@ do
     printf "$DC: \t$(ping -i .2 -c 10 -q speedtest.$DC.linode.com | awk -F/ '/^round|^rtt/{print $5}') ms\n" | expand -t 20
 done
 
-printf "\n\nAWS Ping Test:\n"
+printf "\nAWS Ping Test:\n"
 # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
 for DC in \
     Stockholm.eu-north-1 \
